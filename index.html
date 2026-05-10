@@ -1,3 +1,250 @@
-knk bütün hazırlar burada 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barış & Sevgilim | Nişan</title>
 
-https://wago.io/elvui/classes/priest/shadow
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#0f0f0f;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .hero{
+      height:100vh;
+      background:
+      linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.65)),
+      url('kapak.jpg') center/cover no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    .hero-content h1{
+      font-family:'Great Vibes',cursive;
+      font-size:90px;
+      color:#f4d58d;
+      margin-bottom:10px;
+    }
+
+    .hero-content p{
+      font-size:22px;
+      letter-spacing:2px;
+      margin-bottom:20px;
+    }
+
+    .date-box{
+      margin-top:25px;
+      font-size:20px;
+      line-height:1.8;
+    }
+
+    .countdown{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .countdown div{
+      background:rgba(255,255,255,0.08);
+      padding:20px;
+      border-radius:18px;
+      min-width:100px;
+      backdrop-filter:blur(8px);
+    }
+
+    .countdown span{
+      display:block;
+      font-size:38px;
+      font-weight:700;
+      color:#f4d58d;
+    }
+
+    section{
+      padding:80px 20px;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:40px;
+      margin-bottom:50px;
+      color:#f4d58d;
+    }
+
+    .gallery{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .gallery img{
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      border-radius:20px;
+      transition:.3s;
+    }
+
+    .gallery img:hover{
+      transform:scale(1.03);
+    }
+
+    .location{
+      text-align:center;
+    }
+
+    .location a{
+      display:inline-block;
+      margin-top:20px;
+      padding:14px 28px;
+      border-radius:50px;
+      text-decoration:none;
+      background:#f4d58d;
+      color:black;
+      font-weight:600;
+      transition:.3s;
+    }
+
+    .location a:hover{
+      transform:translateY(-3px);
+    }
+
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      background:#090909;
+      color:#aaa;
+      font-size:15px;
+    }
+
+    @media(max-width:768px){
+
+      .hero-content h1{
+        font-size:60px;
+      }
+
+      .hero-content p{
+        font-size:18px;
+      }
+
+      .countdown div{
+        min-width:80px;
+        padding:15px;
+      }
+
+      .countdown span{
+        font-size:28px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-content">
+
+      <h1>Barış & Sevgilim</h1>
+
+      <p>Nişanımıza Davetlisiniz</p>
+
+      <div class="date-box">
+        📅 18 Ağustos 2026 <br>
+        📍 Antalya
+      </div>
+
+      <div class="countdown">
+        <div>
+          <span id="days">0</span>
+          Gün
+        </div>
+
+        <div>
+          <span id="hours">0</span>
+          Saat
+        </div>
+
+        <div>
+          <span id="minutes">0</span>
+          Dakika
+        </div>
+
+        <div>
+          <span id="seconds">0</span>
+          Saniye
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Anılarımız</h2>
+
+    <div class="gallery">
+      <img src="1.jpg">
+      <img src="2.jpg">
+      <img src="3.jpg">
+      <img src="4.jpg">
+    </div>
+  </section>
+
+  <section class="location">
+    <h2 class="section-title">Konum</h2>
+
+    <p>
+      Bu özel günümüzde sizleri aramızda görmekten mutluluk duyarız.
+    </p>
+
+    <a href="https://maps.google.com" target="_blank">
+      Konumu Aç
+    </a>
+  </section>
+
+  <footer>
+    Zeynep & Barış 20.06. 2026
+  </footer>
+
+  <script>
+
+    const targetDate = new Date("August 18, 2026 19:00:00").getTime();
+
+    const timer = setInterval(() => {
+
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+    }, 1000);
+
+  </script>
+
+</body>
+</html>
