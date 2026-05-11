@@ -389,15 +389,55 @@ loadGallery();
 
 </script>
  
- <audio controls autoplay loop
-style="
-position:fixed;
-bottom:20px;
-right:20px;
-z-index:9999;
-width:250px;
-">
+<audio id="bg-music" autoplay loop>
   <source src="music1.mp3" type="audio/mpeg">
 </audio>
+
+<button id="music-btn">🎵</button>
+
+<script>
+
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("music-btn");
+
+music.volume = 0.5;
+
+const startMusic = async () => {
+
+  try{
+
+    await music.play();
+
+  }catch(err){
+
+    console.log(err);
+
+  }
+
+  document.removeEventListener("click", startMusic);
+  document.removeEventListener("scroll", startMusic);
+
+};
+
+document.addEventListener("click", startMusic);
+document.addEventListener("scroll", startMusic);
+
+btn.addEventListener("click", () => {
+
+  if(music.paused){
+
+    music.play();
+    btn.innerHTML = "🎵";
+
+  }else{
+
+    music.pause();
+    btn.innerHTML = "🔇";
+
+  }
+
+});
+
+</script>
 </body>
 </html>
