@@ -210,6 +210,53 @@
       }
 
     }
+    .guestbook{
+  padding:60px 20px;
+  text-align:center;
+}
+
+.guestbook h2{
+  font-size:42px;
+  margin-bottom:30px;
+  color:#f4d58d;
+}
+
+.guestbook input,
+.guestbook textarea{
+  width:90%;
+  max-width:500px;
+  margin:10px 0;
+  padding:15px;
+  border:none;
+  border-radius:12px;
+  background:#111;
+  color:white;
+  font-size:16px;
+}
+
+.guestbook textarea{
+  height:140px;
+  resize:none;
+}
+
+#send-message{
+  padding:14px 30px;
+  border:none;
+  border-radius:12px;
+  background:#f4d58d;
+  color:black;
+  font-size:18px;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.message-card{
+  background:#111;
+  margin:20px auto;
+  padding:20px;
+  border-radius:16px;
+  max-width:600px;
+}
   </style>
 </head>
 <body>
@@ -495,6 +542,90 @@ music.addEventListener("ended", () => {
   music.play();
 
 });
+</script>
+  <section class="guestbook">
+
+  <h2>💌 Guestbook</h2>
+
+  <input type="text" id="guest-name" placeholder="Your Name">
+
+  <textarea id="guest-message" placeholder="Leave your message"></textarea>
+
+  <button id="send-message">Send Message</button>
+
+  <div id="messages"></div>
+
+</section>
+  <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDEo-O3us3nPiRWnRNo3-ASPAgKQyEtTH4",
+  authDomain: "ourstory-2026.firebaseapp.com",
+  projectId: "ourstory-2026",
+  storageBucket: "ourstory-2026.firebasestorage.app",
+  messagingSenderId: "979432868761",
+  appId: "1:979432868761:web:e4766f009fafc81a63e108",
+  measurementId: "G-RJL9S8E7X2"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const sendBtn = document.getElementById("send-message");
+const messagesDiv = document.getElementById("messages");
+
+async function loadMessages(){
+
+  messagesDiv.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db, "Messages"));
+
+  querySnapshot.forEach((doc) => {
+
+    const data = doc.data();
+
+    messagesDiv.innerHTML += `
+      <div class="message-card">
+        <h3>${data.name}</h3>
+        <p>${data.message}</p>
+      </div>
+    `;
+
+  });
+
+}
+
+sendBtn.addEventListener("click", async () => {
+
+  const name = document.getElementById("guest-name").value;
+
+  const message = document.getElementById("guest-message").value;
+
+  if(name === "" || message === "") return;
+
+  await addDoc(collection(db, "Messages"), {
+    name,
+    message
+  });
+
+  document.getElementById("guest-name").value = "";
+  document.getElementById("guest-message").value = "";
+
+  loadMessages();
+
+});
+
+loadMessages();
+
 </script>
 </body>
 </html>
