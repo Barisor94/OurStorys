@@ -456,8 +456,9 @@ const startMusic = async () => {
 
   try{
 
-    await music.play();
-overlay.style.display = "none";
+  await music.play();
+  overlay.style.display = "none";
+    
   }catch(err){
 
     console.log(err);
