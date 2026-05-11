@@ -444,27 +444,7 @@ btn.onclick = () => {
 
 
   
-  music.volume = 0.5;
 
-  const startMusic = async () => {
-
-    try{
-
-      await music.play();
-
-    }catch(e){
-      console.log(e);
-    }
-
-    document.removeEventListener("click", startMusic);
-    document.removeEventListener("scroll", startMusic);
-
-  };
-
-  document.addEventListener("click", startMusic);
-  document.addEventListener("scroll", startMusic);
-
-});
 
 
 </script>
