@@ -246,6 +246,87 @@
     }, 1000);
 
   </script>
+<section>
 
+<h2 class="section-title">Live Gallery 📸</h2>
+
+<div style="text-align:center; margin-bottom:40px;">
+
+<input type="file" id="upload-photo">
+
+</div>
+
+<div id="live-gallery" style="display:flex; flex-wrap:wrap; justify-content:center;"></div>
+
+</section>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDEo-O3us3nPiRWnRNo3-ASPAgKQyEtTH4",
+  authDomain: "ourstory-2026.firebaseapp.com",
+  projectId: "ourstory-2026",
+  storageBucket: "ourstory-2026.firebasestorage.app",
+  messagingSenderId: "979432868761",
+  appId: "1:979432868761:web:128ae3195e93f8fd63e108",
+  measurementId: "G-RHQ89L5DD5"
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+const uploadInput = document.getElementById("upload-photo");
+const gallery = document.getElementById("live-gallery");
+
+uploadInput.addEventListener("change", async (e) => {
+
+  const file = e.target.files[0];
+
+  if(!file) return;
+
+  const storageRef = ref(storage, `photos/${Date.now()}-${file.name}`);
+
+  await uploadBytes(storageRef, file);
+
+  alert("Photo uploaded ❤️");
+
+  loadGallery();
+
+});
+
+async function loadGallery(){
+
+  gallery.innerHTML = "";
+
+  const listRef = ref(storage, 'photos');
+
+  const res = await listAll(listRef);
+
+  for(const item of res.items){
+
+    const url = await getDownloadURL(item);
+
+    const img = document.createElement("img");
+
+    img.src = url;
+
+    img.style.width = "250px";
+    img.style.height = "320px";
+    img.style.objectFit = "cover";
+    img.style.borderRadius = "20px";
+    img.style.margin = "10px";
+
+    gallery.appendChild(img);
+
+  }
+
+}
+
+loadGallery();
+
+</script>
 </body>
 </html>
