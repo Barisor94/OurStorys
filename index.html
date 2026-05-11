@@ -463,17 +463,11 @@ overlay.remove();
     console.log(err);
 
   }
+overlay.addEventListener("click", startMusic);
 
-  document.removeEventListener("click", startMusic);
-  document.removeEventListener("scroll", startMusic);
-
-};
-
-document.addEventListener("click", startMusic);
-document.addEventListener("scroll", startMusic);
+  
 
 btn.addEventListener("click", () => {
-
   if(music.paused){
 
     music.play();
