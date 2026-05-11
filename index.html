@@ -558,7 +558,7 @@ music.addEventListener("ended", () => {
 </section>
   <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getFirestore,
@@ -577,7 +577,7 @@ const firebaseConfig = {
   measurementId: "G-RJL9S8E7X2",
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const sendBtn = document.getElementById("send-message");
